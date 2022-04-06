@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-
+import GuessedWord from "./GuessedWord";
+import Congrate from "./Congrate";
 function App() {
   const [count, setCount] = useState(0);
   const [error, setError] = useState(false);
@@ -37,6 +38,14 @@ function App() {
       >
         Decrease counter
       </button>
+      <GuessedWord
+        guessedWord={[
+          { guessedWord: "train", letterMatchCount: 3 },
+          { guessedWord: "agile", letterMatchCount: 1 },
+          { guessedWord: "party", letterMatchCount: 5 },
+        ]}
+      ></GuessedWord>
+      <Congrate success={true}></Congrate>
     </div>
   );
 }

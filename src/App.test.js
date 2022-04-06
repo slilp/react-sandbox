@@ -1,12 +1,8 @@
-import Enzyme, { shallow } from "enzyme";
-import EnzymeAdapter from "@wojtekmaj/enzyme-adapter-react-17";
+import { shallow } from "enzyme";
 import App from "./App";
-
-Enzyme.configure({ adapter: new EnzymeAdapter() });
+import { findByTestAttr } from "../test/utils";
 
 const setUp = () => shallow(<App />);
-
-const findByTestAttr = (wrapper, val) => wrapper.find(`[data-test='${val}']`);
 
 test("renders without error", () => {
   const wrapper = setUp();

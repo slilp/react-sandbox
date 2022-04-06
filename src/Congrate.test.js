@@ -1,12 +1,8 @@
-import Exzymn, { shallow } from "enzyme";
-import ExzymnAdapter from "@wojtekmaj/enzyme-adapter-react-17";
+import { shallow } from "enzyme";
 import Congrate from "./Congrate";
-import { checkProps } from "../test/utils";
-
-Exzymn.configure({ adapter: new ExzymnAdapter() });
+import { checkProps, findByTestAttr } from "../test/utils";
 
 const setUp = (props = {}) => shallow(<Congrate {...props}></Congrate>);
-const findByTestAttr = (wrapper, val) => wrapper.find(`[data-test='${val}']`);
 
 test("render without error", () => {});
 

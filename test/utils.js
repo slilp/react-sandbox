@@ -9,3 +9,6 @@ export const checkProps = (component, conformingProps) => {
   );
   expect(propError).toBeUndefined();
 };
+
+export const findByTestAttr = (wrapper, val) =>
+  wrapper.find(`[data-test='${val}']`);
