@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import GuessedWord from "./GuessedWord";
 import Congrate from "./Congrate";
+import Input from "./Input";
+
 function App() {
   const [count, setCount] = useState(0);
   const [error, setError] = useState(false);
@@ -46,6 +48,7 @@ function App() {
         ]}
       ></GuessedWord>
       <Congrate success={true}></Congrate>
+      <Input secretWord="party"></Input>
     </div>
   );
 }
