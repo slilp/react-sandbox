@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-function Input({ secretWord = "GG" }) {
+function Input({ success, secretWord = "GG" }) {
   const [currentGuess, setCurrentGuess] = useState("");
+  if (success) {
+    return <div data-test="component-input"></div>;
+  }
   return (
     <div data-test="component-input">
       <form>
@@ -16,6 +19,7 @@ function Input({ secretWord = "GG" }) {
         <button
           data-test="submit-button"
           onClick={(event) => {
+            event.preventDefault();
             setCurrentGuess("");
           }}
         >
@@ -28,6 +32,7 @@ function Input({ secretWord = "GG" }) {
 
 Input.propTypes = {
   secretWord: PropTypes.string.isRequired,
+  success: PropTypes.bool.isRequired,
 };
 
 export default Input;

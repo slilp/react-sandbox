@@ -41,14 +41,16 @@ function App() {
         Decrease counter
       </button>
       <GuessedWord
-        guessedWord={[
-          { guessedWord: "train", letterMatchCount: 3 },
-          { guessedWord: "agile", letterMatchCount: 1 },
-          { guessedWord: "party", letterMatchCount: 5 },
-        ]}
+        guessedWord={
+          [
+            // { guessedWord: "train", letterMatchCount: 3 },
+            // { guessedWord: "agile", letterMatchCount: 1 },
+            // { guessedWord: "party", letterMatchCount: 5 },
+          ]
+        }
       ></GuessedWord>
-      <Congrate success={true}></Congrate>
-      <Input secretWord="party"></Input>
+      <Congrate success={false}></Congrate>
+      <Input success={false} secretWord="party"></Input>
     </div>
   );
 }
