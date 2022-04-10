@@ -1,13 +1,20 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 import Input from "./Input";
-import { checkProps, findByTestAttr } from "../test/utils";
+import { checkProps, findByTestAttr, storeFactory } from "../test/utils";
+import { Provider } from "react-redux";
 
 const setUp = (props) => {
   const defaultProps = { success: false, secretWord: "party" };
   const setProps = { ...defaultProps, ...props };
 
-  return shallow(<Input {...setProps} />);
+  // return shallow(<Input {...setProps} />);
+
+  return mount(
+    <Provider>
+      <Input {...setProps} />
+    </Provider>
+  );
 };
 
 const mockSetCurrentGuess = jest.fn();
