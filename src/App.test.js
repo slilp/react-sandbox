@@ -1,8 +1,12 @@
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 import App from "./App";
 import { findByTestAttr } from "../test/utils";
 
-const setUp = () => shallow(<App />);
+// activate global mock to make sure getSecretWord does not make network call
+jest.mock("./actions");
+import { getSecretWord as mockGetSecretWord } from "./actions";
+
+const setUp = () => mount(<App />);
 
 test("renders without error", () => {
   const wrapper = setUp();
@@ -84,5 +88,26 @@ describe("decrement button", () => {
       const errorTwo = findByTestAttr(wrapper, "error-message");
       expect(errorTwo.length).toBe(0);
     });
+  });
+});
+
+describe("get secret words", () => {
+  beforeEach(() => {
+    mockGetSecretWord.mockClear();
+  });
+  test("getSecretWord on app mount", () => {
+    const wrapper = setUp();
+    expect(mockGetSecretWord).toHaveBeenCalledTimes(1);
+  });
+
+  test("getSecretWord does not run on app update", () => {
+    const wrapper = setUp();
+
+    mockGetSecretWord.mockClear();
+
+    //using setProps because wrapper.update() doesnot trigger useEffect
+    wrapper.setProps();
+
+    expect(mockGetSecretWord).toHaveBeenCalledTimes(0);
   });
 });

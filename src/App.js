@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import GuessedWord from "./GuessedWord";
 import Congrate from "./Congrate";
 import Input from "./Input";
+import { getSecretWord } from "./actions";
 
 function App() {
   const [count, setCount] = useState(0);
   const [error, setError] = useState(false);
+
+  useEffect(() => {
+    getSecretWord();
+  }, []);
 
   return (
     <div data-test="component-app">
