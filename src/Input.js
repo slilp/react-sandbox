@@ -1,29 +1,37 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-function Input({ secretWord = "GG" }) {
-  const [currentGuess, setCurrentGuess] = useState("");
+import { guessWord } from "./actions";
+
+function Input({ secretWord }) {
+  const [currentGuess, setCurrentGuess] = React.useState("");
   const success = useSelector((state) => state.success);
+  const dispatch = useDispatch();
+
   if (success) {
-    return <div data-test="component-input"></div>;
+    return <div data-test="component-input" />;
   }
+
   return (
     <div data-test="component-input">
-      <form>
+      <form className="form-inline">
         <input
           data-test="input-box"
+          className="mb-2 mx-sm-3"
           type="text"
-          placeholder="enter guess word"
+          placeholder="enter guess"
           value={currentGuess}
           onChange={(event) => setCurrentGuess(event.target.value)}
-        ></input>
+        />
         <button
           data-test="submit-button"
-          onClick={(event) => {
-            event.preventDefault();
+          onClick={(evt) => {
+            evt.preventDefault();
+            dispatch(guessWord(currentGuess));
             setCurrentGuess("");
           }}
+          className="btn btn-primary mb-2"
         >
           Submit
         </button>
@@ -34,7 +42,6 @@ function Input({ secretWord = "GG" }) {
 
 Input.propTypes = {
   secretWord: PropTypes.string.isRequired,
-  success: PropTypes.bool.isRequired,
 };
 
 export default Input;

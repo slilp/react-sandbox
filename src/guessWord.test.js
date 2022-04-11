@@ -1,12 +1,21 @@
 // Functional Testing
 
 import { mount } from "enzyme";
-import { findByTestAttr } from "../test/utils";
+import { findByTestAttr, storeFactory } from "../test/utils";
+import { Provider } from "react-redux";
 
 import App from "./App";
 
-const setUp = (state = {}) => {
-  const wrapper = mount(<App />);
+// activate global mock to make sure getSecretWord does not make network call
+jest.mock("./actions");
+
+const setUp = (initialState = {}) => {
+  const store = storeFactory(initialState);
+  const wrapper = mount(
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
 
   const inputBox = findByTestAttr(wrapper, "input-box");
   inputBox.simulate("change", { target: { value: "trian" } });
@@ -21,7 +30,7 @@ describe("invalid word guess", () => {
   test.todo("guessword table does not get another row");
 });
 
-describe.skip("no word guess", () => {
+describe("no word guess", () => {
   let wrapper;
   beforeEach(() => {
     wrapper = setUp({
@@ -36,7 +45,7 @@ describe.skip("no word guess", () => {
   });
 });
 
-describe.skip("some word guess", () => {
+describe("some word guess", () => {
   let wrapper;
   beforeEach(() => {
     wrapper = setUp({
@@ -51,7 +60,7 @@ describe.skip("some word guess", () => {
   });
 });
 
-describe.skip("guess correct word", () => {
+describe("guess correct word", () => {
   let wrapper;
   beforeEach(() => {
     wrapper = setUp({

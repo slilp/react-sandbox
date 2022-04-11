@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import GuessedWord from "./GuessedWord";
 import Congrate from "./Congrate";
 import Input from "./Input";
@@ -7,6 +8,8 @@ import { getSecretWord } from "./actions";
 function App() {
   const [count, setCount] = useState(0);
   const [error, setError] = useState(false);
+  const success = useSelector((state) => state.success);
+  const guessedWords = useSelector((state) => state.guessedWords);
 
   useEffect(() => {
     getSecretWord();
@@ -45,17 +48,9 @@ function App() {
       >
         Decrease counter
       </button>
-      <GuessedWord
-        guessedWord={
-          [
-            // { guessedWord: "train", letterMatchCount: 3 },
-            // { guessedWord: "agile", letterMatchCount: 1 },
-            // { guessedWord: "party", letterMatchCount: 5 },
-          ]
-        }
-      ></GuessedWord>
-      <Congrate success={false}></Congrate>
-      <Input success={false} secretWord="party"></Input>
+      <GuessedWord guessedWord={guessedWords}></GuessedWord>
+      <Congrate success={success}></Congrate>
+      <Input success={success} secretWord="party"></Input>
     </div>
   );
 }
